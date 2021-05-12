@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { FaBars, Fatimes } from "react-icons/fa"
+import { FaBars, FaTimes } from "react-icons/fa"
 import { IconContext } from "react-icons/lib"
 
 import {
@@ -8,23 +8,14 @@ import {
   NavLogo,
   NavIcon,
   MobileIcon,
+  NavMenu,
+  NavItem,
+  NavLink,
 } from "./NavbarElements"
 
 const Navbar = () => {
   const [click, setClick] = useState(false)
   const [scroll, setScroll] = useState(false)
-
-  useEffect(() => {
-    changeNav()
-    window.addEventListener("scroll", changeNav)
-  }, [])
-
-  useEffect(
-    () => () => {
-      window.removeEventListener("scroll")
-    },
-    []
-  )
 
   const changeNav = () => {
     if (window.scrollY >= 80) {
@@ -34,9 +25,12 @@ const Navbar = () => {
     }
   }
 
-  const handleClick = () => {
-    setClick(!click)
-  }
+  const handleClick = () => setClick(!click)
+
+  useEffect(() => {
+    changeNav()
+    window.addEventListener("scroll", changeNav)
+  }, [])
 
   return (
     <>
@@ -48,8 +42,19 @@ const Navbar = () => {
               Explorer
             </NavLogo>
             <MobileIcon onClick={handleClick}>
-              {click ? <Fatimes /> : <FaBars />}
+              {click ? <FaTimes /> : <FaBars />}
             </MobileIcon>
+            <NavMenu onClick={handleClick} click={click}>
+              <NavItem>
+                <NavLink to="/">Home</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/images">Images</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/destinations">Destinations</NavLink>
+              </NavItem>
+            </NavMenu>
           </NavbarContainer>
         </Nav>
       </IconContext.Provider>
